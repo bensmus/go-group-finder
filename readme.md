@@ -12,15 +12,13 @@ output:
 
 Steps:
 
-2. Start at first one, add it to actual
+2. Start at first one, add its coordinates to actual
 
-3a. Get a list of potential cardinal direction coordinates relative to that first one/first possible
+2b. Transform the first one into a zero: it is no longer needed.
+
+3. Get a list of potential cardinal direction coordinates relative to that first one/first possible, and remove the ones that are zeroes
 
 3b. Note that for (0, 0), these will be (1, 0), (-1, 0), (0, 1), (0, -1). Discard the coordinates containing negative
-
-4. Transform the first one into a zero: it is no longer needed.
-
-4a. possible = list of ones in the accepted cardinal direction coordinates
 
 6. Repeat 3 to 4 while there are possible ones (list not empty)
 
