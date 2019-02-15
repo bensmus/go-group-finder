@@ -1,4 +1,5 @@
 import helper as h
+import numpy as np #for pretty matrix printing
 
 matrix1 = [
 [1, 1, 1, 0],
@@ -49,16 +50,45 @@ Traceback (most recent call last):
 IndexError: list index out of range
 '''
 
-cardinal_coors = h.cardinal([2, 2])
-print(cardinal_coors)
-positive_coors = h.positive(cardinal_coors)
+# cardinal_coors = h.cardinal([2, 2])
+# print(cardinal_coors)
+# positive_coors = h.positive(cardinal_coors)
 
 # haha! we should not only be checking for the positive ones,
 # but also for the indexes out of range (bigger than the matrix)
-print(positive_coors) #[2, 3] should NOT BE A VALID COORDINATE!
+# print(positive_coors) #[2, 3] should NOT BE A VALID COORDINATE!
 
 '''
 new approach:
 start by getting all of the coordinates of the ones: filter
 from there. This way positive filter can be discarded.
 '''
+'''
+print(h.ones(matrix1))
+print(h.cardinal([0, 0]))
+
+# make a intersection function for matrices!
+A = [
+[1, 2, 3],
+[5, 6, 7],
+[4, 5, 6]
+]
+
+B = [
+[1,2,3],
+[5,6,7]
+]
+print(h.matrixAnd(A, B))
+'''
+
+# full test
+ONES_COORS = h.ones(matrix2)
+print(ONES_COORS)
+
+while True: # loop to find the cardinal ones of coordinate
+    print(np.array(matrix2))
+    xcoor = int(input("x coor? "))
+    ycoor = int(input("y coor? "))
+    cardinal_ones = h.cardinalOnes(ONES_COORS, [xcoor, ycoor])
+    print(cardinal_ones)
+    print()
