@@ -3,9 +3,10 @@ import helper as h # start, passed, cardinalOnes
 def groupCoors(matrix):
     actual_coors = []
 
-    current_coor = h.start(matrix) #[0, 0]
+    current_coor = h.start(matrix) #[0, 0] - x y position from top left
     actual_coors.append(current_coor)
 
+    # passed takes two args: matrix and coordinate
     # 8 value matrix: passed([[1, 1]
     #                         [0, 1]], [0, 0]) --> [[8, 1]
     #                                               [0, 1]]
