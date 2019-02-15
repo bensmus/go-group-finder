@@ -17,6 +17,7 @@ def ones(matrix):
 
 def passed(matrix, coordinate):
     matrix[coordinate[1]][coordinate[0]] = 8
+    return matrix
 
 
 def cardinal(coordinate):

@@ -82,11 +82,13 @@ print(h.matrixAnd(A, B))
 '''
 
 # full test
+matrix2 = np.array(matrix2)
 ONES_COORS = h.ones(matrix2)
 print(ONES_COORS)
 
 while True: # loop to find the cardinal ones of coordinate
-    print(np.array(matrix2))
+    #print(np.array(matrix2))
+    print(matrix2)
     xcoor = int(input("x coor? "))
     ycoor = int(input("y coor? "))
     cardinal_ones = h.cardinalOnes(ONES_COORS, [xcoor, ycoor])
