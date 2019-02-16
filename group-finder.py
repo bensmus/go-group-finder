@@ -68,15 +68,16 @@ def belongsTest(group, test_group):
 def _3d_2d(_3d):
     _2d = []
     d1 = len(_3d)
-    d2 = len(_3d[0])
+    d2 = len(_3d[0]) # unused data
     for i in range(d1):
-        for j in range(d2):
+        # some 2d matrices are longer than others...
+        for j in range(len(_3d[i])):
             _2d.append(_3d[i][j])
     return _2d
 
 
 matrix = np.array([
-    [rm.randint(0, 1) for i in range(6)] for i in range(6)
+    [rm.randint(0, 1) for i in range(10)] for i in range(10)
 ])
 
 print()
@@ -113,6 +114,7 @@ for group in shape:
             print("groups: ", groups)
             print()
 
+#import pdb; pdb.set_trace()
 shape = _3d_2d(shape)
 
 # remove duplicates in the 2d array
@@ -170,3 +172,47 @@ Out[5]: [[0, 1], [1, 1], [1, 1], [2, 1]]
 
 In [6]:
 IPython testing to get _3d_2d function '''
+
+'''
+New bug:
+[[0 0 1 1 1 0]
+ [0 0 1 1 0 0]
+ [0 1 0 1 0 0]
+ [1 1 1 1 0 1]
+ [1 1 0 1 0 0]
+ [0 0 1 1 1 0]]
+ --list index out of range when converting 3d to 2d
+ --will this happen more often with say 10x10 matrices?
+
+--it is caused by the first 2d array being bigger than the second one.
+--you cannot say that all of the cardinal groups will be of same size
+--some are 3 groups, 2 groups, four groups
+
+ In [10]: _3d = [
+    ...: [[1, 1],
+    ...:  [0, 1],
+    ...:  [2, 2],
+    ...:  [3, 1]],
+    ...:
+    ...: [[2, 1],
+    ...:  [0, 1],
+    ...:  [2, 2]]
+    ...: ]
+
+In [11]: _2d = _3d_2d(_3d)
+------------------------------------------------------------
+IndexError                 Traceback (most recent call last)
+<ipython-input-11-cf00234380e5> in <module>()
+----> 1 _2d = _3d_2d(_3d)
+
+<ipython-input-2-8dd9b6272e3b> in _3d_2d(_3d)
+      5     for i in range(d1):
+      6         for j in range(d2):
+----> 7             _2d.append(_3d[i][j])
+      8     return _2d
+
+IndexError: list index out of range
+
+In [12]:
+
+ '''
