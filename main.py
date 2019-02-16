@@ -2,25 +2,35 @@ import numpy as np
 import helper as h
 
 matrix = np.array([
-[1, 1, 1, 0],
-[0, 0, 1, 1],
-[1, 1, 0, 0],
+    [int(input("1 or 0: ")) for i in range(4)] for i in range(3)
 ])
+print(matrix)
+
+
+def belongsCombine(row1, row2):
+    for a in row1:
+        for b in row2:
+            if a == b:
+                return row1 + row2
+    else:
+        return row1
+
+
+def getGroup(ONES_COORS, coor):
+    cardinal_ones = h.cardinalOnes(ONES_COORS, coor)
+    group = [i for i in cardinal_ones]
+    group.append(coor)
+    return group
+
 
 ONES_COORS = h.ones(matrix)
+# the original reference group
+group = getGroup(ONES_COORS, ONES_COORS[0])
 
-current_coor = ONES_COORS[0]; print(current_coor)
-actual_coors = [current_coor]; print(actual_coors)
-possible_coors = h.cardinalOnes(ONES_COORS, current_coor); print(possible_coors)
-matrix = h.passed(matrix, current_coor); print(matrix)
+for coor in ONES_COORS:
+    group_current = getGroup(ONES_COORS, coor)
+    group = belongsCombine(group, group_current)
+    print(group)
 
-while possible_coors != []:
-    current_coor = possible_coors[0]
-
-    actual_coors.append(current_coor)
-    possible_coors.remove(current_coor)
-    matrix = h.passed(matrix, current_coor)
-    print(matrix)
-
-    possible_coors += h.cardinalOnes(matrix, current_coor)
-    print(possible_coors)
+# remove duplicates
+print([list(t) for t in set(tuple(element) for element in group)])
