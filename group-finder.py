@@ -76,9 +76,17 @@ def _3d_2d(_3d):
     return _2d
 
 
-matrix = np.array([
+# called this matrix1 to test the bug
+matrix1 = np.array([
     [rm.randint(0, 1) for i in range(10)] for i in range(10)
 ])
+
+matrix = np.array([[0, 0, 1, 1, 1, 0], #specific bug to test
+ [0, 0, 1, 1, 0, 0],
+ [0, 1, 0, 1, 0, 0,],
+ [1 ,1 ,1 ,1 ,0 ,1],
+ [1, 1, 0, 1, 0, 0],
+ [0 ,0 ,1 ,1 ,1 ,0]])
 
 print()
 print(matrix)
