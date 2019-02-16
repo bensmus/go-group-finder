@@ -1,4 +1,5 @@
 import numpy as np
+import random as rm
 
 
 def passed(matrix, coordinate):
@@ -56,8 +57,26 @@ def belongsTest(group, test_group):
     return False
 
 
+'''def crunch3d2d(array):
+    crunched = []
+    for x in array:
+        for y in array:
+            crunched.append(y)
+    return crunched <-- fail'''
+
+
+def _3d_2d(_3d):
+    _2d = []
+    d1 = len(_3d)
+    d2 = len(_3d[0])
+    for i in range(d1):
+        for j in range(d2):
+            _2d.append(_3d[i][j])
+    return _2d
+
+
 matrix = np.array([
-    [int(input("1 or 0: ")) for i in range(4)] for i in range(3)
+    [rm.randint(0, 1) for i in range(6)] for i in range(6)
 ])
 
 print()
@@ -83,25 +102,27 @@ print()
 
 '''we will be adding groups to the shape, and removing them from the group'''
 '''the idea is correct, but we need to run it twice to fix that bug'''
-for i in range(2):
-    for group in shape:
-        for test_group in groups:
-            if belongsTest(group, test_group):
-                shape.append(test_group)
-                groups.remove(test_group)
-                print("shape:  ", shape)
-                print("groups: ", groups)
-                print()
+'''lets not run it twice, but find a better way to fix it'''
 
-'''
-# remove duplicates
-group = [list(t) for t in set(tuple(element) for element in group)]
+for group in shape:
+    for test_group in groups:
+        if belongsTest(group, test_group):
+            shape.append(test_group)
+            groups.remove(test_group)
+            print("shape:  ", shape)
+            print("groups: ", groups)
+            print()
+
+shape = _3d_2d(shape)
+
+# remove duplicates in the 2d array
+shape = [list(t) for t in set(tuple(element) for element in shape)]
 
 # print a matrix that shows the found group
-for coor in group:
+for coor in shape:
     matrix = passed(matrix, coor)
 print(matrix)
-'''
+
 '''
 woah! a bug?
 [[0 0 0 1]
@@ -122,3 +143,30 @@ another one!
  [1 8 8 8]
  [1 0 0 0]]
 '''
+'''
+In [2]: def _3d_2d(_3d):
+   ...:     converts 3d array to a 2d one
+   ...:     _2d = []
+   ...:     d1 = len(_3d)
+   ...:     d2 = len(_3d[0])
+   ...:     for i in range(d1):
+   ...:         for j in range(d2):
+   ...:             _2d.append(_3d[i][j])
+   ...:     return _2d
+   ...:
+
+In [3]: _3d = [
+   ...: [[0, 1],
+   ...:  [1, 1]],
+   ...:
+   ...: [[1, 1],
+   ...:  [2, 1]]
+   ...: ]
+
+In [4]: _2d = _3d_2d(_3d)
+
+In [5]: _2d
+Out[5]: [[0, 1], [1, 1], [1, 1], [2, 1]]
+
+In [6]:
+IPython testing to get _3d_2d function '''
