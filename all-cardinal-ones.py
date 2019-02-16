@@ -5,7 +5,10 @@ matrix = np.array([
     [1, 1, 0, 1],
     [1, 0, 1, 1],
     [1, 1, 0, 0],
-]); print(matrix)
+])
+print(matrix)
+
+ONES_COORS = h.ones(matrix)
 
 '''
 # full POC
@@ -50,24 +53,25 @@ for i, coor in enumerate(ONES_COORS):
 # therefore: group is [1, 2], [0, 2], [0, 1], [0, 0]
 # it's the manhunt algorithm!
 
-ONES_COORS = h.ones(matrix)
-coor = ONES_COORS[0]
-
 
 def belongsCombine(row1, row2):
     for a in row1:
         for b in row2:
             if a == b:
                 return row1 + row2
+    else:
+        return row1
 
-
+'''
 cardinal_ones = h.cardinalOnes(ONES_COORS, coor)
 group = [i for i in cardinal_ones]
 group.append(coor)
 print(group)
+'''
 
 # original group created #
 # this should be a function #
+
 
 def getGroup(ONES_COORS, coor):
     cardinal_ones = h.cardinalOnes(ONES_COORS, coor)
@@ -75,7 +79,19 @@ def getGroup(ONES_COORS, coor):
     group.append(coor)
     return group
 
-print(getGroup(ONES_COORS, [2, 0]))
+
 '''
+print(getGroup(ONES_COORS, [2, 0]))
 [[3, 0], [1, 0], [2, 1], [2, 0]]
 '''
+
+# the original reference group
+group = getGroup(ONES_COORS, ONES_COORS[0])
+
+for coor in ONES_COORS:
+    group_current = getGroup(ONES_COORS, coor)
+    group = belongsCombine(group, group_current)
+    print(group)
+
+# I got this from stackechange, no idea what is going on
+print([list(t) for t in set(tuple(element) for element in group)])
