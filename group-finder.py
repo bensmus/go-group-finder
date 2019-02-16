@@ -47,13 +47,13 @@ def getGroup(ONES_COORS, coor):
     return group
 
 
-def belongsCombine(group, test_group):
+def belongsTest(group, test_group):
     for a in group:
         for b in test_group:
             if a == b:
-                return group + test_group
+                return True
 
-    return group
+    return False
 
 
 matrix = np.array([
@@ -66,16 +66,34 @@ print()
 
 
 ONES_COORS = ones(matrix)
-# the original reference group
-group = getGroup(ONES_COORS, ONES_COORS[0])
+groups = []
 
 for coor in ONES_COORS:
-    group_current = getGroup(ONES_COORS, coor)
-    '''import pdb
-    pdb.set_trace()'''
-    group = belongsCombine(group, group_current)
+    groups.append(getGroup(ONES_COORS, coor))
 
+print(np.array(groups))
+print()
 
+shape = [groups[0]]
+groups.pop(0)
+
+print("shape:  ", shape)
+print("groups: ", groups)
+print()
+
+'''we will be adding groups to the shape, and removing them from the group'''
+'''the idea is correct, but we need to run it twice to fix that bug'''
+for i in range(2):
+    for group in shape:
+        for test_group in groups:
+            if belongsTest(group, test_group):
+                shape.append(test_group)
+                groups.remove(test_group)
+                print("shape:  ", shape)
+                print("groups: ", groups)
+                print()
+
+'''
 # remove duplicates
 group = [list(t) for t in set(tuple(element) for element in group)]
 
@@ -83,7 +101,7 @@ group = [list(t) for t in set(tuple(element) for element in group)]
 for coor in group:
     matrix = passed(matrix, coor)
 print(matrix)
-
+'''
 '''
 woah! a bug?
 [[0 0 0 1]
