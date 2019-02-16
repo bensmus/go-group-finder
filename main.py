@@ -4,7 +4,10 @@ import helper as h
 matrix = np.array([
     [int(input("1 or 0: ")) for i in range(4)] for i in range(3)
 ])
+
+print()
 print(matrix)
+print()
 
 
 def belongsCombine(row1, row2):
@@ -30,7 +33,11 @@ group = getGroup(ONES_COORS, ONES_COORS[0])
 for coor in ONES_COORS:
     group_current = getGroup(ONES_COORS, coor)
     group = belongsCombine(group, group_current)
-    print(group)
 
 # remove duplicates
-print([list(t) for t in set(tuple(element) for element in group)])
+group = [list(t) for t in set(tuple(element) for element in group)]
+
+# print a matrix that shows the found group
+for coor in group:
+    matrix = h.passed(matrix, coor)
+print(matrix)
