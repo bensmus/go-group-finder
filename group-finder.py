@@ -47,13 +47,14 @@ def getGroup(ONES_COORS, coor):
     return group
 
 
-def belongsCombine(row1, row2):
-    for a in row1:
-        for b in row2:
+def belongsCombine(group, test_group):
+    for a in group:
+        for b in test_group:
             if a == b:
-                return row1 + row2
-    else:
-        return row1
+                return group + test_group
+
+    return group
+
 
 matrix = np.array([
     [int(input("1 or 0: ")) for i in range(4)] for i in range(3)
@@ -70,7 +71,10 @@ group = getGroup(ONES_COORS, ONES_COORS[0])
 
 for coor in ONES_COORS:
     group_current = getGroup(ONES_COORS, coor)
+    '''import pdb
+    pdb.set_trace()'''
     group = belongsCombine(group, group_current)
+
 
 # remove duplicates
 group = [list(t) for t in set(tuple(element) for element in group)]
